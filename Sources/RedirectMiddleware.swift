@@ -10,11 +10,11 @@ public struct RedirectMiddleware: Middleware {
         self.shouldRedirect = shouldRedirect
     }
 
-    public func respond(request: Request, chain: Responder) throws -> Response {
+    public func respond(to request: Request, chainingTo chain: Responder) throws -> Response {
         if shouldRedirect(request) {
             return Response(status: .found, headers: ["location":[redirectTo]])
         }
 
-        return try chain.respond(request)
+        return try chain.respond(to: request)
     }
 }

@@ -10,7 +10,7 @@ class RedirectMiddlewareTests: XCTestCase {
         let getRequest = Request(method: .get)
 
         let chain = BasicResponder { _ in XCTFail("Should have redirected"); return Response() }
-        let response = try middleware.respond(getRequest, chain: chain)
+        let response = try middleware.respond(to: getRequest, chainingTo: chain)
 
         XCTAssert(response.status == .found)
         XCTAssert(response.headers["location"] == ["/over-there"])
@@ -20,7 +20,7 @@ class RedirectMiddlewareTests: XCTestCase {
         let postRequest = Request(method: .post)
 
         let chain = BasicResponder { _ in return Response(status: .ok) }
-        let response = try middleware.respond(postRequest, chain: chain)
+        let response = try middleware.respond(to: postRequest, chainingTo: chain)
 
         XCTAssert(response.status == .ok)
         XCTAssert(response.headers["location"] != ["/over-there"])
