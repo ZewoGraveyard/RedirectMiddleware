@@ -3,9 +3,9 @@
 public struct RedirectMiddleware: Middleware {
 
     public let redirectTo: String
-    public let shouldRedirect: Request -> Bool
+    public let shouldRedirect: (Request) -> Bool
 
-    public init(redirectTo: String, if shouldRedirect: Request -> Bool) {
+    public init(redirectTo: String, if shouldRedirect: (Request) -> Bool) {
         self.redirectTo = redirectTo
         self.shouldRedirect = shouldRedirect
     }
